@@ -93,8 +93,7 @@ const Quiz = () => {
   };
 
   mixedAnswers = shuffleArray(mixedAnswers);
-  console.log("Shuffled mixed Answers:", mixedAnswers);
-  console.log("correct answer ", resultFraction);
+
 
   let [index, setIndex] = useState(0);
   let [question, setQuestion] = useState(data[index]);
