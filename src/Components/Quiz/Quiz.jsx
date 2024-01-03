@@ -45,22 +45,22 @@ const Quiz = () => {
 
   let leftFraction = makeFraction();
   let rightFraction = makeFraction();
-  const resultFraction = addFractionsSimplified(leftFraction, rightFraction);
+  const answerFraction = addFractionsSimplified(leftFraction, rightFraction);
 
   let mixedAnswers = [];
   const range = 8;
 
   for (let i = 0; i < 4; i++) {
-    let wrongNumerator = resultFraction.fractionNumerator;
-    let wrongDenominator = resultFraction.fractionDenominator;
+    let wrongNumerator = answerFraction.fractionNumerator;
+    let wrongDenominator = answerFraction.fractionDenominator;
 
     while (
       mixedAnswers.some(
         (answer) => answer.fractionNumerator === wrongNumerator && answer.fractionDenominator === wrongDenominator
       )
     ) {
-      wrongNumerator = resultFraction.fractionNumerator;
-      wrongDenominator = resultFraction.fractionDenominator;
+      wrongNumerator = answerFraction.fractionNumerator;
+      wrongDenominator = answerFraction.fractionDenominator;
       const operation = Math.random() < 0.5 ? "-" : "+";
       const variation = Math.floor(Math.random() * range) + 1;
 
@@ -93,6 +93,8 @@ const Quiz = () => {
   };
 
   mixedAnswers = shuffleArray(mixedAnswers);
+  console.log("answerfraction ", answerFraction);
+  console.log("mixedanswers ", mixedAnswers);
 
 
   let [index, setIndex] = useState(0);
