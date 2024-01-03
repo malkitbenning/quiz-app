@@ -1,51 +1,13 @@
 import React, { useState, useRef } from "react";
 import "./Quiz.css";
 import { data } from "../../assets/data";
+import { addFractions } from "./utils/addFractions";
+import { makeFraction } from "./utils/makeFraction";
 
 const Quiz = () => {
-  const gcd = (a, b) => {
-    while (b !== 0) {
-      const temp = b;
-      b = a % b;
-      a = temp;
-    }
-    return a;
-  };
-
-  const addFractionsSimplified = (fraction1, fraction2) => {
-    const numerator =
-      fraction1.fractionNumerator * fraction2.fractionDenominator +
-      fraction2.fractionNumerator * fraction1.fractionDenominator;
-    const denominator = fraction1.fractionDenominator * fraction2.fractionDenominator;
-
-    // Calculate the greatest common divisor (GCD) of numerator and denominator
-    const divisor = gcd(numerator, denominator);
-
-    // Simplify the fraction by dividing both numerator and denominator by their GCD
-    const simplifiedNumerator = numerator / divisor;
-    const simplifiedDenominator = denominator / divisor;
-
-    return { fractionNumerator: simplifiedNumerator, fractionDenominator: simplifiedDenominator };
-  };
-
-  const makeFraction = () => {
-    const denominatorMin = 2;
-    const denominatorMax = 9;
-    const numeratorMin = 1;
-    const numeratorMax = 9;
-    let randomDenominator = Math.floor(Math.random() * (denominatorMax - denominatorMin + 1)) + denominatorMin;
-    let randomNumerator = Math.floor(Math.random() * (numeratorMax - numeratorMin + 1)) + numeratorMin;
-
-    while (randomNumerator >= randomDenominator) {
-      randomNumerator = Math.floor(Math.random() * (numeratorMax - numeratorMin + 1)) + numeratorMin;
-    }
-    let builtFraction = { fractionNumerator: randomNumerator, fractionDenominator: randomDenominator };
-    return builtFraction;
-  };
-
   let leftFraction = makeFraction();
   let rightFraction = makeFraction();
-  const answerFraction = addFractionsSimplified(leftFraction, rightFraction);
+  const answerFraction = addFractions(leftFraction, rightFraction);
 
   let mixedAnswers = [];
   const range = 8;
@@ -93,9 +55,9 @@ const Quiz = () => {
   };
 
   mixedAnswers = shuffleArray(mixedAnswers);
+
   console.log("answerfraction ", answerFraction);
   console.log("mixedanswers ", mixedAnswers);
-
 
   let [index, setIndex] = useState(0);
   let [question, setQuestion] = useState(data[index]);
@@ -112,14 +74,15 @@ const Quiz = () => {
 
   const checkAns = (e, ans) => {
     if (lock === false) {
-      if (question.ans === ans) {
+      if (question.option[ans] === question.ansFraction) {
         e.target.classList.add("correct");
         setLock(true);
         setScore((prev) => prev + 1);
       } else {
         e.target.classList.add("wrong");
         setLock(true);
-        optionArray[question.ans - 1].current.classList.add("correct");
+        let correctOptionPosition = question.option.indexOf(question.ansFraction);
+        optionArray[correctOptionPosition].current.classList.add("correct");
       }
     }
   };
@@ -174,49 +137,49 @@ const Quiz = () => {
             <li
               ref={Option1}
               onClick={(e) => {
-                checkAns(e, 1);
+                checkAns(e, 0);
               }}
             >
               <div className="frac">
-                <span>{question.option1.split("/")[0]}</span>
+                <span>{question.option[0].split("/")[0]}</span>
                 <span className="symbol">/</span>
-                <span className="bottom">{question.option1.split("/")[1]}</span>
+                <span className="bottom">{question.option[0].split("/")[1]}</span>
               </div>
             </li>
             <li
               ref={Option2}
               onClick={(e) => {
-                checkAns(e, 2);
+                checkAns(e, 1);
               }}
             >
               <div className="frac">
-                <span>{question.option2.split("/")[0]}</span>
+                <span>{question.option[1].split("/")[0]}</span>
                 <span className="symbol">/</span>
-                <span className="bottom">{question.option2.split("/")[1]}</span>
+                <span className="bottom">{question.option[1].split("/")[1]}</span>
               </div>
             </li>
             <li
               ref={Option3}
               onClick={(e) => {
-                checkAns(e, 3);
+                checkAns(e, 2);
               }}
             >
               <div className="frac">
-                <span>{question.option3.split("/")[0]}</span>
+                <span>{question.option[2].split("/")[0]}</span>
                 <span className="symbol">/</span>
-                <span className="bottom">{question.option3.split("/")[1]}</span>
+                <span className="bottom">{question.option[2].split("/")[1]}</span>
               </div>
             </li>
             <li
               ref={Option4}
               onClick={(e) => {
-                checkAns(e, 4);
+                checkAns(e, 3);
               }}
             >
               <div className="frac">
-                <span>{question.option4.split("/")[0]}</span>
+                <span>{question.option[3].split("/")[0]}</span>
                 <span className="symbol">/</span>
-                <span className="bottom">{question.option4.split("/")[1]}</span>
+                <span className="bottom">{question.option[3].split("/")[1]}</span>
               </div>
             </li>
           </ul>
