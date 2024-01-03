@@ -11,9 +11,21 @@ const Quiz = () => {
   const answerFraction = addFractions(leftFraction, rightFraction);
   const mixedAnswers = generateOptions(answerFraction);
 
-  console.log("answerfraction ", answerFraction);
-  console.log("mixedanswers ", mixedAnswers);
-
+  console.log("answer fraction ", answerFraction);
+  console.log("mixed answers ", mixedAnswers);
+  const buildDataRecord = (leftFraction, rightFraction, mixedAnswers, answerFraction) => {
+    const aRecord = {};
+    aRecord.questionLeftNumerator = leftFraction.fractionNumerator;
+    aRecord.questionLeftDenominator = leftFraction.fractionDenominator;
+    aRecord.questionRightNumerator = rightFraction.fractionNumerator;
+    aRecord.questionRightDenominator = rightFraction.fractionDenominator;
+    aRecord.option = mixedAnswers;
+    aRecord.ansFraction =
+      answerFraction.fractionNumerator.toString() + "/" + answerFraction.fractionDenominator.toString();
+    return aRecord;
+  };
+  console.log("record ", buildDataRecord(leftFraction, rightFraction, mixedAnswers, answerFraction));
+  
   let [index, setIndex] = useState(0);
   let [question, setQuestion] = useState(data[index]);
   let [lock, setLock] = useState(false);
