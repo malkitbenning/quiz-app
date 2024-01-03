@@ -1,11 +1,10 @@
 export const data = [
   {
-    questionLeftNumerator: "3",
-    questionLeftDenominator: "6",
-    questionRightNumerator: "1",
-    questionRightDenominator: "6",
+    questionLeftNumerator: 3,
+    questionLeftDenominator: 6,
+    questionRightNumerator: 1,
+    questionRightDenominator: 6,
     option: ["8/8", "2/3", "5/6", "7/15"],
-    ans: { fractionNumerator: 2, fractionDenominator: 3 },
     ansFraction: "2/3",
   },
   {
@@ -14,7 +13,6 @@ export const data = [
     questionRightNumerator: "3",
     questionRightDenominator: "7",
     option: ["11/35", "29/35", "5/14", "15/25"],
-    ans: { fractionNumerator: 29, fractionDenominator: 35 },
     ansFraction: "29/35",
   },
   {
@@ -23,7 +21,6 @@ export const data = [
     questionRightNumerator: "2",
     questionRightDenominator: "6",
     option: ["14/24", "5/14", "14/16", "17/24"],
-    ans: { fractionNumerator: 17, fractionDenominator: 24 },
     ansFraction: "17/24",
   },
   {
@@ -32,7 +29,6 @@ export const data = [
     questionRightNumerator: "3",
     questionRightDenominator: "5",
     option: ["6/18", "14/30", "37/45", "6/15"],
-    ans: { fractionNumerator: 37, fractionDenominator: 45 },
     ansFraction: "37/45",
   },
 ];
