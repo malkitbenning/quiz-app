@@ -4,28 +4,20 @@ import { data } from "../../assets/data";
 import { addFractions } from "./utils/addFractions";
 import { makeFraction } from "./utils/makeFraction";
 import { generateOptions } from "./utils/generateOptions";
+import { buildDataRecord } from "./utils/buildDataRecord";
 
 const Quiz = () => {
   let leftFraction = makeFraction();
   let rightFraction = makeFraction();
   const answerFraction = addFractions(leftFraction, rightFraction);
   const mixedAnswers = generateOptions(answerFraction);
+  const dataRecord = buildDataRecord(leftFraction, rightFraction, mixedAnswers, answerFraction);
 
   console.log("answer fraction ", answerFraction);
   console.log("mixed answers ", mixedAnswers);
-  const buildDataRecord = (leftFraction, rightFraction, mixedAnswers, answerFraction) => {
-    const aRecord = {};
-    aRecord.questionLeftNumerator = leftFraction.fractionNumerator;
-    aRecord.questionLeftDenominator = leftFraction.fractionDenominator;
-    aRecord.questionRightNumerator = rightFraction.fractionNumerator;
-    aRecord.questionRightDenominator = rightFraction.fractionDenominator;
-    aRecord.option = mixedAnswers;
-    aRecord.ansFraction =
-      answerFraction.fractionNumerator.toString() + "/" + answerFraction.fractionDenominator.toString();
-    return aRecord;
-  };
-  console.log("record ", buildDataRecord(leftFraction, rightFraction, mixedAnswers, answerFraction));
-  
+  console.log(dataRecord);
+  data.push(dataRecord);
+
   let [index, setIndex] = useState(0);
   let [question, setQuestion] = useState(data[index]);
   let [lock, setLock] = useState(false);
