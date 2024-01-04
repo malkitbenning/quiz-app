@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Quiz.css";
 import { data } from "../../assets/data";
 import { addFractions } from "./utils/addFractions";
@@ -7,19 +7,21 @@ import { generateOptions } from "./utils/generateOptions";
 import { buildDataRecord } from "./utils/buildDataRecord";
 
 const Quiz = () => {
-  let leftFraction = makeFraction();
-  let rightFraction = makeFraction();
-  const answerFraction = addFractions(leftFraction, rightFraction);
-  const mixedAnswers = generateOptions(answerFraction);
-  const dataRecord = buildDataRecord(leftFraction, rightFraction, mixedAnswers, answerFraction);
+  const [allQuestions, setAllQuestions] = useState(data);
 
-  console.log("answer fraction ", answerFraction);
-  console.log("mixed answers ", mixedAnswers);
-  console.log(dataRecord);
-  data.push(dataRecord);
+  useEffect(() => {
+    const leftFraction = makeFraction();
+    const rightFraction = makeFraction();
+    const answerFraction = addFractions(leftFraction, rightFraction);
+    const mixedAnswers = generateOptions(answerFraction);
+    const dataRecord = buildDataRecord(leftFraction, rightFraction, mixedAnswers, answerFraction);
+    console.log("I got run");
+    // data.push(dataRecord);
+    setAllQuestions((prevQuestions) => [...prevQuestions, dataRecord]);
+  }, []);
 
   let [index, setIndex] = useState(0);
-  let [question, setQuestion] = useState(data[index]);
+  let [question, setQuestion] = useState(allQuestions[index]);
   let [lock, setLock] = useState(false);
   let [score, setScore] = useState(0);
   let [result, setResult] = useState(false);
@@ -48,12 +50,12 @@ const Quiz = () => {
 
   const next = () => {
     if (lock) {
-      if (index === data.length - 1) {
+      if (index === allQuestions.length - 1) {
         setResult(true);
         return 0;
       }
       setIndex(++index);
-      setQuestion(data[index]);
+      setQuestion(allQuestions[index]);
       setLock(false);
       optionArray.map((option) => {
         option.current.classList.remove("correct");
@@ -65,7 +67,7 @@ const Quiz = () => {
 
   const reset = () => {
     setIndex(0);
-    setQuestion(data[0]);
+    setQuestion(allQuestions[0]);
     setScore(0);
     setLock(false);
     setResult(false);
@@ -144,14 +146,14 @@ const Quiz = () => {
           </ul>
           <button onClick={next}>Next</button>
           <div className="index">
-            {index + 1} of {data.length} questions
+            {index + 1} of {allQuestions.length} questions
           </div>
         </>
       )}
       {result ? (
         <>
           <h2>
-            You Scored {score} out of {data.length}
+            You Scored {score} out of {allQuestions.length}
           </h2>
           <button onClick={reset}>Reset</button>
         </>
