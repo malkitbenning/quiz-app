@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import "./Quiz.css";
+import QuizOption from "./QuizOption";
 
 const FractionAddition = ({ fractionAdditionData }) => {
   const [allQuestions, setAllQuestions] = useState(fractionAdditionData);
@@ -78,56 +79,13 @@ const FractionAddition = ({ fractionAdditionData }) => {
               <span className="bottom">{question.questionRightDenominator}</span>
             </div>
           </h2>
+
           <ul>
-            <li
-              ref={Option1}
-              onClick={(e) => {
-                checkAns(e, 0);
-              }}
-            >
-              <div className="frac">
-                <span>{question.option[0].split("/")[0]}</span>
-                <span className="symbol">/</span>
-                <span className="bottom">{question.option[0].split("/")[1]}</span>
-              </div>
-            </li>
-            <li
-              ref={Option2}
-              onClick={(e) => {
-                checkAns(e, 1);
-              }}
-            >
-              <div className="frac">
-                <span>{question.option[1].split("/")[0]}</span>
-                <span className="symbol">/</span>
-                <span className="bottom">{question.option[1].split("/")[1]}</span>
-              </div>
-            </li>
-            <li
-              ref={Option3}
-              onClick={(e) => {
-                checkAns(e, 2);
-              }}
-            >
-              <div className="frac">
-                <span>{question.option[2].split("/")[0]}</span>
-                <span className="symbol">/</span>
-                <span className="bottom">{question.option[2].split("/")[1]}</span>
-              </div>
-            </li>
-            <li
-              ref={Option4}
-              onClick={(e) => {
-                checkAns(e, 3);
-              }}
-            >
-              <div className="frac">
-                <span>{question.option[3].split("/")[0]}</span>
-                <span className="symbol">/</span>
-                <span className="bottom">{question.option[3].split("/")[1]}</span>
-              </div>
-            </li>
+            {question.option.map((option, idx) => (
+              <QuizOption key={idx} option={option} index={idx} optionArray={optionArray} checkAns={checkAns} />
+            ))}
           </ul>
+
           <button onClick={next}>Next</button>
           <div className="index">
             {index + 1} of {allQuestions.length} questions
