@@ -1,24 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Quiz.css";
-import { data } from "../../assets/data";
-import { addFractions } from "./utils/addFractions";
-import { makeFraction } from "./utils/makeFraction";
-import { generateOptions } from "./utils/generateOptions";
-import { buildDataRecord } from "./utils/buildDataRecord";
 
-const Quiz = () => {
-  const [allQuestions, setAllQuestions] = useState(data);
-
-  useEffect(() => {
-    const leftFraction = makeFraction();
-    const rightFraction = makeFraction();
-    const answerFraction = addFractions(leftFraction, rightFraction);
-    const mixedAnswers = generateOptions(answerFraction);
-    const dataRecord = buildDataRecord(leftFraction, rightFraction, mixedAnswers, answerFraction);
-    console.log("I got run");
-    // data.push(dataRecord);
-    setAllQuestions((prevQuestions) => [...prevQuestions, dataRecord]);
-  }, []);
+const FractionAddition = ({ fractionAdditionData }) => {
+  const [allQuestions, setAllQuestions] = useState(fractionAdditionData);
 
   let [index, setIndex] = useState(0);
   let [question, setQuestion] = useState(allQuestions[index]);
@@ -75,7 +59,7 @@ const Quiz = () => {
 
   return (
     <div className="container">
-      <h1>Fractions Quiz</h1>
+      <h1>Fractions Addition Quiz</h1>
       <hr />
       {result ? (
         <></>
@@ -164,4 +148,4 @@ const Quiz = () => {
   );
 };
 
-export default Quiz;
+export default FractionAddition;
