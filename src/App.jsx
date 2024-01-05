@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Header from "./Components/Header";
-import Nav from "./Components/Nav";
-import Footer from "./Components/Footer";
+import TopContainer from "./Components/TopContainer";
 
 import MainContainer from "./Components/MainContainer";
 
@@ -14,10 +12,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <Nav handleOptionClick={handleOptionClick} />
+      <TopContainer handleOptionClick={handleOptionClick} />
       <MainContainer selectedOption={selectedOption} />
-      <Footer />
     </div>
   );
 }

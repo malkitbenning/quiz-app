@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import "./Quiz.css";
+import "./FractionAddition.css";
 import QuizOption from "./QuizOption";
 
 const FractionAddition = ({ fractionAdditionData }) => {

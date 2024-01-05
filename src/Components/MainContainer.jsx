@@ -14,7 +14,7 @@ const MainContainer = ({ selectedOption }) => {
       content = <div>Option 2 content</div>;
       break;
     default:
-      content = <div>Default content</div>;
+      content = <div></div>;
       break;
   }
 
