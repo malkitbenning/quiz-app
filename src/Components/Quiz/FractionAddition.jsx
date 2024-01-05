@@ -1,21 +1,21 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import "./Quiz.css";
 
 const FractionAddition = ({ fractionAdditionData }) => {
   const [allQuestions, setAllQuestions] = useState(fractionAdditionData);
 
   let [index, setIndex] = useState(0);
-  let [question, setQuestion] = useState(allQuestions[index]);
-  let [lock, setLock] = useState(false);
-  let [score, setScore] = useState(0);
-  let [result, setResult] = useState(false);
+  const [question, setQuestion] = useState(allQuestions[index]);
+  const [lock, setLock] = useState(false);
+  const [score, setScore] = useState(0);
+  const [result, setResult] = useState(false);
 
-  let Option1 = useRef(null);
-  let Option2 = useRef(null);
-  let Option3 = useRef(null);
-  let Option4 = useRef(null);
+  const Option1 = useRef(null);
+  const Option2 = useRef(null);
+  const Option3 = useRef(null);
+  const Option4 = useRef(null);
 
-  let optionArray = [Option1, Option2, Option3, Option4];
+  const optionArray = [Option1, Option2, Option3, Option4];
 
   const checkAns = (e, ans) => {
     if (lock === false) {
